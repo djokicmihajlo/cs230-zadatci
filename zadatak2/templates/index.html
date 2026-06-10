@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="sr">
+<head>
+    <meta charset="utf-8">
+    <title>Zadatak 2</title>
+</head>
+<body>
+    <h1>Kuhinja restorana</h1>
+
+    <form method="post">
+        <label for="jelo">Jelo:</label><br>
+        <input type="text" id="jelo" name="jelo">
+        <button type="submit">Dodaj porudzbinu</button>
+    </form>
+
+    <h2>Porudzbine</h2>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>Jelo</th>
+            <th>Status</th>
+            <th>Kuvar</th>
+        </tr>
+
+        {% for porudzbina in porudzbine %}
+            <tr>
+                <td>{{ porudzbina.id }}</td>
+                <td>{{ porudzbina.jelo }}</td>
+                <td>{{ porudzbina.status }}</td>
+                <td>{{ porudzbina.kuvar }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
