@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="sr">
+<head>
+    <meta charset="utf-8">
+    <title>Zadatak 1</title>
+</head>
+<body>
+    <h1>Zadatak 1</h1>
+
+    <form method="post" onsubmit="return proveriDuzinu()">
+        <label for="tekst">Unesite tekst:</label><br>
+        <textarea id="tekst" name="tekst" rows="6" cols="50" maxlength="255">{{ tekst }}</textarea><br>
+        <span id="brojac">0 / 255</span>
+        <p id="greska-klijent"></p>
+        <button type="submit">Posalji</button>
+    </form>
+
+    {% if greska %}
+        <p>{{ greska }}</p>
+    {% endif %}
+
+    {% if hash_vrednost %}
+        <h2>SHA-256 hash:</h2>
+        <p>{{ hash_vrednost }}</p>
+    {% endif %}
+
+    <script>
+        const tekst = document.getElementById("tekst");
+        const brojac = document.getElementById("brojac");
+        const greska = document.getElementById("greska-klijent");
+
+        function osveziBrojac() {
+            brojac.textContent = tekst.value.length + " / 255";
+        }
+
+        function proveriDuzinu() {
+            if (tekst.value.length > 255) {
+                greska.textContent = "Tekst ne sme imati vise od 255 karaktera.";
+                return false;
+            }
+
+            greska.textContent = "";
+            return true;
+        }
+
+        tekst.addEventListener("input", osveziBrojac);
+        osveziBrojac();
+    </script>
+</body>
+</html>
