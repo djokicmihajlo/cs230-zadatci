@@ -1,0 +1,27 @@
+import os
+import socket
+
+
+HOST = "127.0.0.1"
+PORT = 5042
+
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server.bind((HOST, PORT))
+server.listen()
+
+print("Server2 radi.")
+
+while True:
+    conn, addr = server.accept()
+    putanja = conn.recv(1024).decode("utf-8").lstrip("/")
+
+    if os.path.isfile(putanja):
+        with open(putanja, "r", encoding="utf-8") as fajl:
+            odgovor = fajl.read()
+    else:
+        odgovor = "Fajl ne postoji."
+
+    conn.sendall(odgovor.encode("utf-8"))
+    conn.close()
